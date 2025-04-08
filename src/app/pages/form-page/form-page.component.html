@@ -1,0 +1,82 @@
+<style>
+  form {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  label {
+    display: block;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 5px;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+
+  textarea {
+    resize: vertical;
+    height: 100px;
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  button:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+  }
+
+  div[ngIf] {
+    color: red;
+    font-size: 13px;
+    margin-top: 5px;
+  }
+
+  h2 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+  }
+</style>
+
+<h2>Feedback Form</h2>
+<form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+  <label>Name:</label>
+  <input formControlName="name" />
+  <div *ngIf="feedbackForm.get('name')?.invalid && feedbackForm.get('name')?.touched">
+    Name is required.
+  </div>
+
+  <label>Email:</label>
+  <input formControlName="email" />
+  <div *ngIf="feedbackForm.get('email')?.invalid && feedbackForm.get('email')?.touched">
+    Valid email is required.
+  </div>
+
+  <label>Message:</label>
+  <textarea formControlName="message"></textarea>
+  <div *ngIf="feedbackForm.get('message')?.invalid && feedbackForm.get('message')?.touched">
+    Message is required.
+  </div>
+
+  <button type="submit" [disabled]="feedbackForm.invalid">Submit</button>
+</form>
